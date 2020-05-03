@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome To Groceries Store</h1>
+</div>
+<div class="split left">
+    <div class="centered">
+        <img src="img_avatar2.png" alt="Admin">
+        <h2>Admin</h2>
+        <p>@Html.ActionLink("Upload", "Upload", "Admin")</p>
+        <p>@Html.ActionLink("View", "Groceries", "Admin")</p>
+        <p>@Html.ActionLink("Download", "Download", "Admin")</p>
+    </div>
+</div>
+
+<div class="split right">
+    <div class="centered">
+        <img src="img_avatar.png" alt="Cutomer">
+        <h2>Customer</h2>
+        <p>@Html.ActionLink("View", "Groceries", "Customer")</p>
+    </div>
+</div>

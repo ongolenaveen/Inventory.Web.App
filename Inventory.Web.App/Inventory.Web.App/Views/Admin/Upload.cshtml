@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Upload Inventory File";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post" enctype="multipart/form-data" asp-controller="Admin" asp-action="Upload">
+    <div class="form-group">
+        <div class="col-md-10">
+            <p>Upload inventory file:</p>
+            <input type="file" id="uploadFile" name="files" accept=".csv"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="submit" value="Upload" />
+        </div>
+    </div>
+</form>
