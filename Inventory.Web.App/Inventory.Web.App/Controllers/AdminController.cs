@@ -1,7 +1,9 @@
 ﻿using Inventory.Core.DomainModels;
 using Inventory.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,13 +11,21 @@ using System.Threading.Tasks;
 
 namespace Inventory.Web.App.Controllers
 {
+    /// <summary>
+    /// Admin Controller
+    /// </summary>
     //[Authorize(Roles ="Admin")]
     public class AdminController:BaseController
     {
         private readonly IInventoryDataProvider _inventoryDataProvider;
+
+        /// <summary>
+        /// Constructor For Admin Controller
+        /// </summary>
+        /// <param name="inventoryDataProvider">Inventory Data Provider</param>
         public AdminController(IInventoryDataProvider inventoryDataProvider)
         {
-            _inventoryDataProvider = inventoryDataProvider;
+            _inventoryDataProvider = inventoryDataProvider?? throw new ArgumentNullException(nameof(inventoryDataProvider));
         }
 
         /// <summary>
@@ -36,6 +46,10 @@ namespace Inventory.Web.App.Controllers
         [HttpPost]
         public async Task<ActionResult> Upload(List<IFormFile> files)
         {
+            // Validate the received request
+            if (files == null || !files.Any())
+                return BadRequest();
+
             var uploadedFile = files.First();
             var inventoryFile = new InventoryFile { Name = uploadedFile.FileName };
             // Get the content of the uploded file
@@ -81,7 +95,7 @@ namespace Inventory.Web.App.Controllers
         {
             var csvFile = await _inventoryDataProvider.Download();
 
-            return new FileContentResult(csvFile, "text/csv");
+            return File(csvFile, "text/csv","Inventory.csv");
         }
     }
 }

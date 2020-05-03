@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Inventory.Core.DomainModels
 {
@@ -20,11 +21,14 @@ namespace Inventory.Core.DomainModels
         /// <summary>
         /// Quantity In Stock
         /// </summary>
+        [Display(Name = "Quantity In Stock")]
         public int QuantityInStock { get; set; }
 
         /// <summary>
         /// Updated Date
         /// </summary>
+        [DataType(DataType.Date)]
+        [Display(Name = "Updated Date")]
         public DateTime UpdatedDate { get; set; }
     }
 }
